@@ -1,0 +1,20 @@
+name: freepro
+services:
+  server1:
+    image: freepro/debian-ssh:latest
+    container_name: server1
+    hostname: freepro-server1
+    environment:
+      - SSH_KEY=${SSH_PUBLIC_KEY}
+    ports:
+      - 2221:22
+    env_file: ".env"
+  server2:
+    image: freepro/debian-ssh:latest
+    container_name: server2
+    hostname: freepro-server2
+    environment:
+      - SSH_KEY=${SSH_PUBLIC_KEY}
+    ports:
+      - 2222:22
+    env_file: ".env"
