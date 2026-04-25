@@ -35,7 +35,7 @@ def test_job_metrics_table_exists():
             """
                 SELECT count()
                 FROM system.tables
-                WHERE database = currentDatabase()
+                WHERE database = 'test_ops_data_platform'
                 AND name = 'job_metrics'
             """
         )
@@ -44,11 +44,12 @@ def test_job_metrics_table_exists():
 
 
 def test_job_metrics_table_is_not_empty():
+    """ test if table if not empty """
     assert (
         run_test_query(
             """
                 SELECT count(1)
-                FROM job_metrics
+                FROM test_ops_data_platform.job_metrics
             """
         )
         > 0

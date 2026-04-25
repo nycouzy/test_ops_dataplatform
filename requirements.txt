@@ -4,3 +4,4 @@ requests==2.33.1
 python-dotenv==1.2.2
 Faker==40.15.0
 pytest==9.0.3
+sqlglot==30.6.0

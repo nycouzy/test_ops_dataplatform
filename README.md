@@ -27,12 +27,13 @@ Ajout de la clé publique dans ~/.ssh/authorized_keys
 
 ### Mise en place de l'instance clickhouse 
 Sur WSL installation de kubectl et k3d + activation de l'intégration WSL dans docker desktop
+Mise en place du même environnement sur macOs pour tester le déploiement sur une autre plateforme.
 
 Création d'un noeud de test
 ```bash
 k3d cluster create clickhouse-cluster
 ```
-Création du StatefulSet
+Création du StatefulSet. Entre Deployment et StatefulSet ChatGPT suggère un StatefulSet pour une BDD.
 ```bash
 kubectl apply -f clickhouse-deployment.yaml
 ```
@@ -74,9 +75,14 @@ Une fois toutes ces étapes sur http://localhost:8123 on a bien une instance de 
 
 ### Création de la table
 L'énoncé laissé entendre qu'on pouvait créer la table via l'interface. On va faire un fichier **job_metrics.sql** et une méthode python dans le module **send_metrics.py** à la place.
+Ajout de create database pour éviter de créer la table dand default.
+Uniformisation de l'exécution des requêtes.
+L'utilisation d'sqlglot qui a un dialect clickhouse a été testé mais **KO** car FORMAT n'est pas une expression SQL valide. On pourrait ajouter un paramètre format pour valider la requête sans et ajouter le format après dans le cadre d'une insertion de données.
+
 
 ### Insertion de mock data
-Utilisation de faker pour générer des données dans la fonction **mock_data()**
+Utilisation de faker pour générer des données dans la fonction **mock_data()**.
 
 ### tests
-Ajout de tests pytest pour valider que la table existe et qu'elle contient des lignes
+Ajout de tests pytest pour valider que la table existe et qu'elle contient des lignes.
+Il faudrait ajouter des tests unitaire sur la fonction run_query
