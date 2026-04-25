@@ -37,7 +37,7 @@ Création du StatefulSet. Entre Deployment et StatefulSet ChatGPT suggère un St
 ```bash
 kubectl apply -f clickhouse-deployment.yaml
 ```
-Vérification diverse
+Vérifications diverses
 ```bash
 kubectl get statefulsets # On vérifie que le statefulset est bien créé
 kubectl get pods # Que le pod tourne bien
@@ -61,7 +61,7 @@ Création du service
 ```bash
 kubectl apply -f clickhouse-service.yaml
 ```
-Vérification
+Vérifications
 ```bash
 kubectl get svc
 kubectl describe svc clickhouse
@@ -88,3 +88,8 @@ Utilisation de faker pour générer des données dans la fonction **mock_data()*
 ### tests
 Ajout de tests pytest pour valider que la table existe et qu'elle contient des lignes.
 Il faudrait ajouter des tests unitaire sur la fonction run_query
+
+### BONUS
+Création d'un module **send_metrics_clickhouse_connect** qui réalise les mêmes étapes mais avec un client **clickhouse_connect** et des données au format polars / arrow.
+
+Cette partie ne suit pas les consignes du test mais s'approche plus de ce que je ferais si j'avais le choix des méthodes / outils. Jusqu'à trouver mieux.

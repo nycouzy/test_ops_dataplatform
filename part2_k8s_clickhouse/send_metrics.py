@@ -1,5 +1,6 @@
 """
-Création de la table + insertion de mock data
+This module create table job_metrics and send mock data.
+Using http and TabSeparated format for data
 """
 
 import os
@@ -16,10 +17,8 @@ from sqlglot.errors import ParseError
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-load_dotenv()
 
 logger = logging.getLogger(__name__)
-"""logger du module"""
 
 
 def run_query(
@@ -27,9 +26,9 @@ def run_query(
     user: str,
     password: str,
     *,
-    query: str = None,
-    file_path: str = None,
-    data: str = None,
+    query: str | None = None,
+    file_path: str | None = None,
+    data: str | None = None,
 ) -> Response:
     """Run the given query.
 
@@ -76,10 +75,9 @@ def run_query(
     )
     if response.ok:
         logger.info("Query execution %s OK", query)
-        return response
-
-    logger.error("Error during query %s", query)
-    raise RuntimeError(f"Error during {query} execution")
+    else:
+        logger.error("Error during query %s", query)
+    return response
 
 
 def mock_data(nb_line: int = 10) -> str:
@@ -101,9 +99,9 @@ def mock_data(nb_line: int = 10) -> str:
 
 if __name__ == "__main__":
     load_dotenv()
-    _url = os.getenv("CLICKHOUSE_URL")
-    _user = os.getenv("CLICKHOUSE_USER")
-    _password = os.getenv("CLICKHOUSE_PASSWORD")
+    _url = os.getenv("CLICKHOUSE_URL", "http://localhost:8123")
+    _user = os.getenv("CLICKHOUSE_USER", "default")
+    _password = os.getenv("CLICKHOUSE_PASSWORD", "")
     # In a production environment we would use query or file_path but not a mix.
     # Probably file_path as .sql should be in git
     run_query(
