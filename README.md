@@ -90,6 +90,7 @@ Ajout de tests pytest pour valider que la table existe et qu'elle contient des l
 Il faudrait ajouter des tests unitaire sur la fonction run_query
 
 ### BONUS
+Création d'un déploiement pyinfra pour le cluster clickhouse.
 Création d'un module **send_metrics_clickhouse_connect** qui réalise les mêmes étapes mais avec un client **clickhouse_connect** et des données au format polars / arrow.
 
 Cette partie ne suit pas les consignes du test mais s'approche plus de ce que je ferais si j'avais le choix des méthodes / outils. Jusqu'à trouver mieux.
