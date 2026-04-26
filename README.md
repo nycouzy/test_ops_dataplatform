@@ -77,7 +77,7 @@ Une fois toutes ces étapes sur http://localhost:8123 on a bien une instance de 
 L'énoncé laissé entendre qu'on pouvait créer la table via l'interface. On va faire un fichier **job_metrics.sql** et une méthode python dans le module **send_metrics.py** à la place.
 Ajout de create database pour éviter de créer la table dans **default**.
 
-L'utilisation d'**sqlglot** qui a un dialect clickhouse a été testé mais **KO** car **FORMAT** n'est pas une expression SQL valide. 
+L'utilisation de **sqlglot** qui a un dialect clickhouse a été testé mais **KO** car **FORMAT** n'est pas une expression SQL valide. 
 
 On pourrait ajouter un paramètre format pour valider la requête sans et ajouter le format après dans le cadre d'une insertion de données.
 
