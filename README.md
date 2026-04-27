@@ -1,13 +1,13 @@
 # test_ops_dataplatform
 ## part1 pyinfra
 ### flask
-app flask qui expose un endpoint health, exposé sur le port 8080
+app flask qui expose un endpoint _/health_, exposé sur le port 8080
 
 ### systemd service
-Exécution via flask --app run ==> OK Pour POC / Dev, KO prod
+Exécution via flask --app run ==> **OK** Pour POC / Dev, **KO** prod
 
 ### pyinfra
-Pour le déploiement pyinfra la 1ère idée était de créer 2 service docker basé sur des images alpine avec ssh
+Pour le déploiement pyinfra la 1ère idée était de créer 2 services docker basés sur des images alpine avec ssh
 
 Le problème c'est qu'alpine n'utilise par systemd mais OpenRC ==> **KO**
 
@@ -15,10 +15,10 @@ Passage sur une debian ssh, docker et systemd ne font pas bon ménage ==> **KO**
 
 Utilisation de Debian sur WSL ==> **OK**
 
-Utilisation d'une distribution Ubuntu pour "simuler" un 2ème serveur (en reconfigurant les ports 2221 & 2222 au lieu de 22) ==> **OK** pour le déploiement via pyinfra, **KO** pour le service systemd car l'api est lancée 2 fois avec le port 8080. Limite malheureusement de WSL
+Utilisation d'une distribution Ubuntu pour "simuler" un 2ème serveur (en reconfigurant les ports 2221 & 2222 au lieu de 22) ==> **OK** pour le déploiement via pyinfra, **KO** pour le service systemd car l'api est lancée 2 fois avec le port 8080. Limite malheureusement de WSL et du manque d'isolation.
 
 Depuis le passage sur WSL, utilisation du user root pour simplifier un peu (pas bien).
-Installtion openssh-server
+Installation openssh-server
 Génération d'une clé publique / privée via ssh-keygen
 Ajout de la clé publique dans ~/.ssh/authorized_keys
 
@@ -33,7 +33,7 @@ Création d'un noeud de test
 ```bash
 k3d cluster create clickhouse-cluster
 ```
-Création du StatefulSet. Entre Deployment et StatefulSet ChatGPT suggère un StatefulSet pour une BDD.
+Création du StatefulSet. Entre Deployment et StatefulSet ChatGPT suggère un StatefulSet pour une BDD. Après vérification dans la doc, c'est en effet plus pertinent pour une BDD pour la persistence des données.
 ```bash
 kubectl apply -f clickhouse-deployment.yaml
 ```
@@ -87,7 +87,7 @@ Utilisation de faker pour générer des données dans la fonction **mock_data()*
 
 ### tests
 Ajout de tests pytest pour valider que la table existe et qu'elle contient des lignes.
-Il faudrait ajouter des tests unitaire sur la fonction run_query
+Il faudrait ajouter des tests unitaire sur la fonction run_query.
 
 ### BONUS
 Création d'un déploiement pyinfra pour le cluster clickhouse.
